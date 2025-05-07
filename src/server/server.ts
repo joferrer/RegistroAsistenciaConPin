@@ -1,0 +1,42 @@
+import express from 'express';
+import cors from 'cors';
+import http from 'http';
+import path from 'path';
+
+import { router as pinRouter  } from '../servicios/pin/pinroutes'; // Asegúrate de que la ruta sea correcta
+
+class Server {
+    private port: number;
+    private host: string;
+    private app: express.Application;
+    private server: http.Server; //Este funciona para ws desde arduino.
+
+    constructor() {
+        this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+        this.host = process.env.HOST || 'localhost';
+        this.app = express();
+
+        this.server = http.createServer(this.app);
+    }
+
+    middlewares() {
+        this.app.use(cors());
+        this.app.use(express.json());
+        this.app.use(express.static(path.join(__dirname, '../../public')));
+    }
+    
+    routes() {
+        this.app.use('/api', pinRouter);
+    }
+    start() {
+        this.middlewares();
+        this.routes();
+
+        this.server.listen(this.port, this.host, () => {
+            console.log(`Server is running at http://${this.host}:${this.port}`);
+        });
+
+    }
+}
+
+export const server = new Server(); 

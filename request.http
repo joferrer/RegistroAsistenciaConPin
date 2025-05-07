@@ -1,0 +1,8 @@
+## Generar PIN
+POST http://localhost:3000/api/generar-pin HTTP/1.1
+content-type: application/json
+
+{
+    "nombre": "Jairo Barrera",
+    "correo": "jairoBarrera@gmail.com"
+}
