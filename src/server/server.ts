@@ -7,13 +7,11 @@ import { router as pinRouter  } from '../servicios/pin/pinroutes'; // Asegúrate
 
 class Server {
     private port: number;
-    private host: string;
     private app: express.Application;
     private server: http.Server; //Este funciona para ws desde arduino.
 
     constructor() {
         this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-        this.host = process.env.HOST || 'localhost';
         this.app = express();
 
         this.server = http.createServer(this.app);
@@ -32,8 +30,8 @@ class Server {
         this.middlewares();
         this.routes();
 
-        this.server.listen(this.port, this.host, () => {
-            console.log(`Server is running at http://${this.host}:${this.port}`);
+        this.server.listen(this.port, () => {
+            console.log(`Server is running at http://localhost:${this.port}`);
         });
 
     }

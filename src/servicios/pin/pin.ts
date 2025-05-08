@@ -2,7 +2,7 @@
 type PinEntry = {
     expiresAt: number;
     correo: string;
-    nombre?: string;
+    nombre: string;
   };
   
   const pinStore = new Map<string, PinEntry>();
@@ -17,7 +17,7 @@ type PinEntry = {
     nombre,
   }: {
     correo: string;
-    nombre?: string;
+    nombre: string;
   }): { pin: string; fechaExpiracion: string } {
 
     const pin = generatePin();
@@ -26,14 +26,17 @@ type PinEntry = {
     return {pin, fechaExpiracion: new Date(expiresAt).toLocaleString()};
   }
   
-  export function verifyPin(inputPin: string): boolean {
+  export function verifyPin(inputPin: string):  string  {
+    
     const entry = pinStore.get(inputPin);
-    if (!entry) return false;
+    if (!entry) {
+      return "PIN no encontrado";
+    };
   
     const isExpired = Date.now() > entry.expiresAt;
     pinStore.delete(inputPin); // Se elimina de todas formas
   
-    return !isExpired;
+    return !isExpired ? entry.nombre : 'PIN expirado';
   }
   
   export function cleanupExpiredPins(): void {

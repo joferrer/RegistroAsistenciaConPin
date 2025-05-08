@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createPin, showPins } from './pin';
+import { createPin, showPins, verifyPin } from './pin';
 
 
 export const router = Router();
@@ -23,3 +23,16 @@ router.post('/generar-pin', (req, res) => {
     res.json({ pin, fechaExpiracion });
 });
 
+router.post('/verificar-pin', (req, res) => {
+    
+    const { pin } = req.body;
+        
+        if (!pin) {
+            res.status(400).send('No se ha proporcionado un PIN');
+            return;
+        }
+    
+        const nombreUsuario = verifyPin(pin);
+        res.send(nombreUsuario)
+      
+});
