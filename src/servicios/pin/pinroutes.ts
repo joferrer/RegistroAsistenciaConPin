@@ -19,7 +19,7 @@ router.post('/generar-pin', (req, res) => {
     }
 
     const {pin, fechaExpiracion} = createPin({ correo, nombre });
-    showPins();
+    console.log(pin, fechaExpiracion);
     res.json({ pin, fechaExpiracion });
 });
 

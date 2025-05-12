@@ -14,3 +14,20 @@ content-type: application/json
 {
     "pin": "46108"
 }
+
+### Generar PIN PROD
+POST https://registroasistenciaconpin-production.up.railway.app/api/generar-pin HTTP/1.1
+content-type: application/json
+
+{
+    "nombre": "Jairo Barrera prod1",
+    "correo": "jairoBarreraPROD1@gmail.com"
+}
+
+### Verificar PIN prod
+POST https://registroasistenciaconpin-production.up.railway.app/api/verificar-pin HTTP/1.1
+content-type: application/json
+
+{
+    "pin": "60723"
+}
