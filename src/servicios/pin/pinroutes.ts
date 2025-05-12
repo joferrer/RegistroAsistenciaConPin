@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createPin, showPins, verifyPin } from './pin';
+import { createPin, verifyPin } from './pin';
 
 
 export const router = Router();
