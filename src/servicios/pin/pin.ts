@@ -1,3 +1,4 @@
+import { registrarIngreso } from "../../firebase/realtimedb";
 
 type PinEntry = {
     expiresAt: number;
@@ -26,7 +27,7 @@ type PinEntry = {
     return {pin, fechaExpiracion: new Date(expiresAt).toLocaleString()};
   }
   
-  export function verifyPin(inputPin: string):  string  {
+  export async function verifyPin(inputPin: string):  Promise<string>  {
     
     const entry = pinStore.get(inputPin);
     if (!entry) {
@@ -35,7 +36,13 @@ type PinEntry = {
   
     const isExpired = Date.now() > entry.expiresAt;
     pinStore.delete(inputPin); // Se elimina de todas formas
-  
+    if(!isExpired) {
+      await registrarIngreso({
+        nombre: entry.nombre,
+        correo: entry.correo,
+      })
+
+    }
     return !isExpired ? entry.nombre : 'PIN expirado';
   }
   

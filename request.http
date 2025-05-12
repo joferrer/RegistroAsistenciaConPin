@@ -1,5 +1,5 @@
 ## Generar PIN
-POST https://registroasistenciaconpin-production.up.railway.app/api/generar-pin HTTP/1.1
+POST http://localhost:3000/api/generar-pin HTTP/1.1
 content-type: application/json
 
 {
@@ -8,9 +8,9 @@ content-type: application/json
 }
 
 ### Verificar PIN
-POST http://192.168.81.245:3000/api/verificar-pin HTTP/1.1
+POST http://localhost:3000/api/verificar-pin HTTP/1.1
 content-type: application/json
 
 {
-    "pin": "26373"
+    "pin": "46108"
 }

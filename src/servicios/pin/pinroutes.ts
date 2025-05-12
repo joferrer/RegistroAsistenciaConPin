@@ -23,7 +23,7 @@ router.post('/generar-pin', (req, res) => {
     res.json({ pin, fechaExpiracion });
 });
 
-router.post('/verificar-pin', (req, res) => {
+router.post('/verificar-pin', async(req, res) => {
     
     const { pin } = req.body;
         
@@ -32,7 +32,7 @@ router.post('/verificar-pin', (req, res) => {
             return;
         }
     
-        const nombreUsuario = verifyPin(pin);
+        const nombreUsuario = await verifyPin(pin);
         res.send(nombreUsuario)
       
 });
